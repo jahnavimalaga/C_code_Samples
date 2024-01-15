@@ -1,0 +1,74 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+struct Student
+{
+char name[15];
+int roll_no;
+float marks[6];
+struct Student* next;
+};
+
+	void create_details(struct Student* p,int x)
+	{
+	 int a;
+		char t; 
+         for(int i=0;i<15;)
+	 {
+          p->name[i]=rand()%123;
+		t=p->name[i];
+          if(t==32||(t>65&&t<91)||(t>96&&t<123))
+		{
+			i++;
+			}  
+	 
+		}
+            p->roll_no=x; 
+            //p->roll_no=((float)rand()/(float)(RAND_MAX))*x;
+         for(int i=0;i<6;i++)
+ 	 {
+	 	 p->marks[i]=((float)rand()/(float)(RAND_MAX))*100.0;
+	 }
+	 p->next=NULL;
+	}
+
+	void print_details(struct Student* p)
+	{
+
+	printf("details of thee student\n");
+	printf("Name : \n");
+	puts(p->name);
+		
+ 	printf("roll number: %d \n",p->roll_no);
+	for(int i=0;i<6;i++)
+	 {
+		printf("marks in the %d subject: %f \n",i,p->marks[i]);
+	 }
+
+	}
+
+int main()
+ {
+	struct Student* head;
+	struct Student* temp;
+	int n; 
+	printf("enter the number of students");
+	scanf("%d",&n);
+	head=(struct Student*)malloc(sizeof(struct Student));
+	temp=head;
+	for(int i=1;i<=n;i++)
+	{
+		struct Student* x;
+		create_details(temp,(i));//to convert to rndom i=n+1
+		x=(struct Student*)malloc(sizeof(struct Student));
+		temp->next=x;
+		temp=x;
+	}
+	temp=head;
+        	for(int i=1;i<=n;i++)
+	{
+		print_details(temp);
+		temp=temp->next;
+	}
+	return 0;
+ }
